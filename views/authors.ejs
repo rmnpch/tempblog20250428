@@ -1,0 +1,20 @@
+<%- include('partials/head', {title: 'Blog Authors'}) %>
+
+<body>
+    <h1>Blog Collaborating Authors</h1>
+    <%- include('partials/nav') %>
+    <% authors.forEach(author => { %>
+
+    <a href="/author/<%=author.id  %>">
+        <div class="author-info">
+            <img src="<%= author.image %>" alt="<%= author.name %>">
+            <h2 class="post-list">
+                <%= author.name %>
+            </h2>
+        </div>
+    </a>
+
+    <% }) %>
+</body>
+
+</html>

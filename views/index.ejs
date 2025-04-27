@@ -1,0 +1,11 @@
+<%- include('partials/head', {title: 'IT Blog'}) %>
+
+<body>
+    <h1><%= message %></h1>
+    <%- include('partials/nav') %>
+    <% posts.forEach(post => { %>
+    <h2 class="post-list"><a href="/post/<%=post.id  %>"><%= post.title %></a></h2>
+    <% }) %>
+</body>
+
+</html>

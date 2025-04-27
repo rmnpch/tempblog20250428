@@ -1,0 +1,33 @@
+<%- include('partials/head', {title: 'IT Blog'}) %>
+
+<body>
+    <h1><%= post.title %></h1>
+    <%- include('partials/nav') %>
+    <a href="/author/<%= author.id %>">
+        <div class="author-info">
+            <img src="<%= author.image %>" alt="<%= author.name %>">
+            <p><small><%= author.name %></small></p>
+        </div>
+    </a>
+    <main>
+        <p><%= post.content %></p>
+    </main>
+    <% if (comments.length>0) { %>
+
+    <% 
+    console.log(comments)
+     %>
+    <div class="comment-section">
+        <h3>Comments</h3>
+        <% comments.forEach(comment => { %>
+        <div class="comment">
+            <h4><%= comment.author %></h4>
+            <p><%= comment.content %></p>
+        </div>
+        <% }) %>
+    </div>
+    <% } %>
+
+</body>
+
+</html>

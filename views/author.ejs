@@ -1,0 +1,12 @@
+<%- include('partials/head', {title: 'Author Page'}) %>
+
+<body>
+    <h1><%= author.name %></h1>
+    <%- include('partials/nav') %>
+    <div class="author-main">
+        <img src="<%= author.image %>" alt="<%= author.name %>">
+        <h2><%= author.bio %></h2>
+    </div>
+</body>
+
+</html>
