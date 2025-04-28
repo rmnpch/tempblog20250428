@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 
 const Author = require("./models/Author");
 const Post = require("./models/Post");
@@ -42,6 +44,30 @@ app.get("/authors", async (req, res) => {
   res.render("authors", { authors });
 });
 
+app.get("/post/create", async (req, res) => {
+  res.render("create-post");
+});
+
+app.post("/post/create", async (req, res) => {
+  const { title, content, author, tags } = req.body;
+  const authors = await Author.find({});
+  const authorId = authors[author]._id;
+  const newPost = new Post({
+    title,
+    content,
+    authorId,
+    tags: tags.split(",").map((tag) => tag.trim()),
+  });
+
+  try {
+    await newPost.save();
+    res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error creating post");
+  }
+});
+
 // Single post page
 app.get("/post/:id", async (req, res) => {
   const postID = req.params.id;
@@ -55,7 +81,6 @@ app.get("/post/:id", async (req, res) => {
     const commentsFiltered = comments.filter(
       (comment) => comment.postId == postID
     );
-    console.log(commentsFiltered);
     // res.json(post);
     res.render("post", { post, author, comments: commentsFiltered });
   } catch (err) {
@@ -63,8 +88,22 @@ app.get("/post/:id", async (req, res) => {
     res.status(500).render("not-found");
   }
 });
+// DELETE a user
+app.delete("/posts/:id", async (req, res) => {
+  try {
+    const postId = req.params.id; // Get the post id from the URL params
+    const result = await Post.findByIdAndDelete(postId);
 
-// Single author page
+    if (!result) {
+      return res.status(404).render("not-found");
+    }
+    res.redirect("/");
+  } catch (err) {
+    console.error("Error deleting post:", err);
+    res.status(500).send("Error deleting post");
+  }
+});
+
 app.get("/author/:id", async (req, res) => {
   const authorID = req.params.id;
 
@@ -77,11 +116,6 @@ app.get("/author/:id", async (req, res) => {
     console.error(err);
     res.status(500).render("not-found");
   }
-});
-
-// Example filter (optional) - adjust as needed
-app.get("/filter", async (req, res) => {
-  // Example filter logic here
 });
 
 app.use((req, res) => {

@@ -1,20 +1,30 @@
-<%- include('partials/head', {title: 'nEW aRTICLE'}) %>
+<%- include('partials/head', {title: 'New post'}) %>
 
 <body>
     <h1>Blog Collaborating Authors</h1>
     <%- include('partials/nav') %>
-    <% authors.forEach(author => { %>
+    
+    <form action="/post/create" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required placeholder="New post title" autofocus><br>
 
-    <a href="/author/<%=author.id  %>">
-        <div class="author-info">
-            <img src="<%= author.image %>" alt="<%= author.name %>">
-            <h2 class="post-list">
-                <%= author.name %>
-            </h2>
-        </div>
-    </a>
+        <label for="author">Author:</label><br>
+        <select id="author" name="author" required>
+            <option value="0">Jane Developer</option>
+            <option value="1">Alex Designer </option>
+            <option value="2">Sam Coder </option>
+            <option value="3">Taylor DBA </option>
+            <option value="4">Morgan Devops </option>
+        </select><br><br>
 
-    <% }) %>
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content" rows="4" cols="50" placeholder="Blog content"></textarea><br>
+
+        <label for="tags">Content:</label><br>
+        <textarea id="tags" name="tags" rows="1" cols="50" placeholder="Blog tags (separated by commas)"></textarea><br>
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
 
 </html>

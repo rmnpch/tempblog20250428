@@ -1,7 +1,0 @@
-Create delete and put requests to modify the current data on the comments, authors or posts
-
-Comments can be deleted individually, but if you delete a post, all the related comments to the post should also be deleted. 
-If you delete an author, all the associated posts and comments should be deleted as well. 
-
-Also, include a 'Create Post' page that will consist of adding a new item to the posts array. 
-Remember to include validation to guarantee that the id for the post, and include at least the id, title, authorId and content.
