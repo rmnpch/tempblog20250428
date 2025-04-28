@@ -19,9 +19,21 @@ async function seedDatabase() {
     await Comment.deleteMany({});
 
     // Insert new data
-    await Author.insertMany(authors);
-    await Post.insertMany(posts);
-    await Comment.insertMany(comments);
+    const createdAuthors = await Author.insertMany(authors);
+    const postsWithAuthorIds = posts.map((post, index) => ({
+      ...post,
+      authorId: createdAuthors[index]._id, // Use real _id
+    }));
+
+    await Post.insertMany(postsWithAuthorIds);
+    const createdPosts = await Post.find({});
+
+    const commentsWithPostIds = comments.map((comment, index) => ({
+      ...comment,
+      postId: createdPosts[comment.postId - 1]._id, // Example linking
+    }));
+
+    await Comment.insertMany(commentsWithPostIds);
 
     console.log("Database seeded successfully!");
   } catch (err) {
