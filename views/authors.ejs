@@ -5,14 +5,12 @@
     <%- include('partials/nav') %>
     <% authors.forEach(author => { %>
 
-    <a href="/author/<%=author.id  %>">
-        <div class="author-info">
-            <img src="<%= author.image %>" alt="<%= author.name %>">
-            <h2 class="post-list">
-                <%= author.name %>
-            </h2>
-        </div>
-    </a>
+            <a class="author-info" href="/author/<%=author.id  %>">
+                <img src="<%= author.image %>" alt="<%= author.name %>">
+                <h2 class="post-list">
+                    <%= author.name %>
+                </h2>
+            </a>
 
     <% }) %>
 </body>

@@ -9,9 +9,7 @@
             <p><small><%= author.name %></small></p>
         </div>
     </a>
-    <form action="/posts/<%= post.id %>?_method=DELETE" method="POST">
-        <button class="delete" type="submit">Delete Post</button>
-    </form>
+    
     <main>
         <p><%= post.content %></p>
     </main>
@@ -29,6 +27,11 @@
         <% }) %>
     </div>
     <% } %>
+    <footer>
+        <form class="delete-form" action="/posts/<%= post.id %>?_method=DELETE" method="POST">
+            <button class="delete" type="submit">Delete Post</button>
+        </form>
+    </footer>
 
 </body>
 

@@ -91,7 +91,7 @@ app.get("/post/:id", async (req, res) => {
 // DELETE a user
 app.delete("/posts/:id", async (req, res) => {
   try {
-    const postId = req.params.id; // Get the post id from the URL params
+    const postId = req.params.id;
     const result = await Post.findByIdAndDelete(postId);
 
     if (!result) {
