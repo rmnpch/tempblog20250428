@@ -10,33 +10,10 @@ const clientOptions = {
   serverApi: { version: "1", strict: true, deprecationErrors: true },
 };
 
-let authors = require("./models/authors");
+let authors = require("./data/authors");
 let Author = require("./models/Author");
-let posts = require("./models/posts");
-let comments = require("./models/comments");
-
-async function connectDBAndSeed() {
-  try {
-    await mongoose.connect(uri, clientOptions);
-    console.log("Connected to MongoDB!");
-
-    await seedDatabase(); // <-- Seed after connecting
-  } catch (err) {
-    console.error("DB connection error:", err);
-  }
-}
-
-async function seedDatabase() {
-  try {
-    await Author.deleteMany({});
-    await Author.insertMany(authors);
-    console.log("Database seeded successfully!");
-  } catch (err) {
-    console.error("Seeding error:", err);
-  }
-}
-
-connectDBAndSeed();
+let posts = require("./data/posts");
+let comments = require("./data/comments");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
