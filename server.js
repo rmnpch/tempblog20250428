@@ -1,4 +1,7 @@
 const express = require("express");
+//dotevn is a package that loads environment variables from a .env file into process.env
+//Require dotenv to access environment variables
+const dotenv = require("dotenv").config();
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
@@ -13,14 +16,18 @@ const clientOptions = {
   serverApi: { version: "1", strict: true, deprecationErrors: true },
 };
 
+//Replace user and password using template literals
 const uri =
-  "mongodb+srv://user1:OyGjpN7zy0uwTq0G@cluster0.u7lfk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // use the correct URI
+  `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.u7lfk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
 
 // Connect to MongoDB
 async function mongoConnection() {
   try {
     await mongoose.connect(uri, clientOptions);
     console.log("Connected to MongoDB!");
+    //console.log to check if process.enc are being accessed
+    console.log(process.env.MONGODB_USER);
   } catch (err) {
     console.error(err);
   }
