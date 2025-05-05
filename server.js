@@ -1,6 +1,7 @@
 const express = require("express");
 //dotevn is a package that loads environment variables from a .env file into process.env
 //Require dotenv to access environment variables
+//Change main and script start to server.js in package.json
 const dotenv = require("dotenv").config();
 const app = express();
 const path = require("path");
